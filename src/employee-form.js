@@ -53,15 +53,11 @@ class EmployeeForm extends LitElement {
     e.preventDefault();
     const formData = new FormData(e.target);
     const employeeData = Object.fromEntries(formData.entries());
-
     if (this.isEditMode) {
-      // In edit mode, include the employee's original ID
       this.dispatchEvent(new CustomEvent('edit-employee', { detail: { ...this.employee, ...employeeData } }));
     } else {
-      // In add mode
       this.dispatchEvent(new CustomEvent('add-employee', { detail: employeeData }));
     }
-  //  this._navigateToEmployeeList();
   }
 
   _navigateToEmployeeList() {

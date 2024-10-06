@@ -8,48 +8,44 @@ class EmployeeApp extends LitElement {
     employees: { type: Array },
     view: { type: String },  // 'list' or 'form'
     displayFormat: { type: String },  // 'list' or 'table'
-    selectedEmployee: { type: Object },  // Holds the employee being edited
-    isEditMode: { type: Boolean },  // Tracks if we are in edit mode
+    selectedEmployee: { type: Object },  // Holds the edit data
+    isEditMode: { type: Boolean },  // Flag for form
   };
 
   constructor() {
     super();
     this.employees = [];
-    this.view = 'list'; // Start with the employee list view
-    this.displayFormat = 'list';  // Default to list form
-    this.selectedEmployee = null;  // No employee selected initially
-    this.isEditMode = false;  // Default mode is adding a new employee
+    this.view = 'list';
+    this.displayFormat = 'list'; 
+    this.selectedEmployee = null;  
+    this.isEditMode = false;  
   }
 
   handleAddEmployee(employee) {
     const newEmployee = { ...employee, id: this.employees.length + 1 };
     this.employees = [...this.employees, newEmployee];
-    this.view = 'list';  // Switch back to list after adding
+    this.view = 'list';  
   }
 
   handleEditEmployee(updatedEmployee) {
-    console.log("handleEditEmployee" , updatedEmployee)
-
     this.employees = this.employees.map((employee) =>
       employee.id === updatedEmployee.id ? updatedEmployee : employee
-    );  // Update the employee array with the new data
-    console.log("updated list" , this.employees)
-
-    this.isEditMode = false;  // Reset the mode after editing
+    );  
+    this.isEditMode = false;  
     this.selectedEmployee = null;
-    this.view = 'list';  // Return to list view
+    this.view = 'list';  
   }
 
   navigateToAddForm() {
-    this.view = 'form';  // Switch to form view
-    this.selectedEmployee = null;  // Clear any selected employee
-    this.isEditMode = false;  // Switch to add mode
+    this.view = 'form'; 
+    this.selectedEmployee = null; 
+    this.isEditMode = false; 
   }
 
   navigateToEditForm(employee) {
-    this.view = 'form';  // Switch to form view to edit the selected employee
-    this.selectedEmployee = employee;  // Store the employee to be edited
-    this.isEditMode = true;  // Enable edit mode
+    this.view = 'form';  
+    this.selectedEmployee = employee;  
+    this.isEditMode = true;  
   }
 
   _confirmDelete(employeeId) {
@@ -64,7 +60,7 @@ class EmployeeApp extends LitElement {
   }
   
   toggleDisplayFormat() {
-    this.displayFormat = this.displayFormat === 'list' ? 'table' : 'list';  // Toggle between list and table formats
+    this.displayFormat = this.displayFormat === 'list' ? 'table' : 'list'; 
   }
 
   render() {
